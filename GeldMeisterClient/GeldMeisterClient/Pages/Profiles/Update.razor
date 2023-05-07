@@ -1,10 +1,8 @@
-﻿@page "/register"
-@using GeldMeisterClient.Clients;
-@using GeldMeisterClient.Pages.Profiles.Requests;
-@using GeldMeisterClient.Services.User.Authentication;
-@using Microsoft.AspNetCore.Components
-@inject AuthenticationService AuthenticationService;
-
+﻿@page "/update"
+@using GeldMeisterClient.Pages.Profiles.Requests
+@using GeldMeisterClient.Services.User.Authentication
+@using GeldMeisterClient.Services.User.Management
+@inject AccountManagementService AccountManagementService;
 <PageTitle>Sign Up</PageTitle>
 <br/>
 <section class="vh-100" style="background-color: #fff;">
@@ -16,37 +14,37 @@
                         <div class="row justify-content-center">
                             <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
 
-                                <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Create an account</p>
+                                <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Update your account details</p>
 
                                 <EditForm Model="@_request" OnValidSubmit="@HandleValidSubmitAsync" class="mt-4">
-                                <DataAnnotationsValidator/>
-                                <ValidationSummary/>
-
+                                    <DataAnnotationsValidator/>
+                                    <ValidationSummary/>
+                                    
                                     <div class="form-outline mb-4">
-                                        <InputText @bind-Value=_request.Username type="text" class="form-control form-control-lg" placeholder="Your Username"/>
+                                        <InputText @bind-Value=_request.Email type="email" class="form-control form-control-lg" placeholder="Your Email"/>
                                     </div>
 
                                     <div class="form-outline mb-4">
-                                        <InputText @bind-Value=_request.Email type="email" class="form-control form-control-lg" placeholder="Your Email" />
+                                        <InputText @bind-Value=_request.PhoneNumber type="text" class="form-control form-control-lg" placeholder="Your Phone Number"/>
                                     </div>
 
                                     <div class="form-outline mb-4">
-                                        <InputText @bind-Value=_request.Password type="password" class="form-control form-control-lg" placeholder="Your Password" />
+                                        <InputText @bind-Value=_request.GitHub type="text" class="form-control form-control-lg" placeholder="Your GitHub Username"/>
                                     </div>
 
                                     <div class="form-outline mb-4">
-                                        <InputText @bind-Value=_request.RepeatPassword type="password" class="form-control form-control-lg" placeholder="Repeat Password" />
+                                        <InputText @bind-Value=_request.Instagram type="text" class="form-control form-control-lg" placeholder="Your Instagram Username"/>
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <InputText @bind-Value=_request.Twitter type="text" class="form-control form-control-lg" placeholder="Your Twitter Username"/>
                                     </div>
 
                                     <div class="d-flex justify-content-center">
                                         <button type="submit" class="btn btn-primary btn-block btn-lg">
-                                            Register
+                                            Update
                                         </button>
                                     </div>
-
-                                    <p class="text-center text-muted mt-5 mb-0">
-                                        Already have an account? <a href="login" class="fw-bold text-body"><u>Login here</u></a>
-                                    </p>
 
                                 </EditForm>
 
@@ -63,13 +61,15 @@
         </div>
     </div>
 </section>
-<Footer />
+<Footer/>
 
 @code {
-    private readonly SignUpRequest _request = new();
 
+    private readonly UpdateRequest _request = new();
+    
     private async Task HandleValidSubmitAsync()
     {
-        await AuthenticationService.RegisterAndLoginUser(_request);
+        await AccountManagementService.UpdateUserDetails(_request);
     }
+
 }

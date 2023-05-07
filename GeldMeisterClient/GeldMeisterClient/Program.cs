@@ -1,5 +1,6 @@
 using GeldMeisterClient.Clients;
 using GeldMeisterClient.Services.User.Authentication;
+using GeldMeisterClient.Services.User.Management;
 using Microsoft.AspNetCore.Components.Authorization;
 using Refit;
 
@@ -14,10 +15,15 @@ builder.Services
 builder.Services
     .AddRefitClient<IAuthorizationClient>()
     .ConfigureHttpClient(x => x.BaseAddress = new Uri(builder.Configuration["Services:Users"]));
+builder.Services
+    .AddRefitClient<IAccountManagementClient>()
+    .ConfigureHttpClient(x => x.BaseAddress = new Uri(builder.Configuration["Services:Users"]));
 builder.Services.AddScoped<TokenAuthenticationStateProvider, TokenAuthenticationStateProvider>();
 builder.Services.AddScoped<AuthenticationStateProvider, TokenAuthenticationStateProvider>();
 builder.Services.AddScoped<AuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+builder.Services.AddScoped<AccountManagementService, AccountManagementService>();
+builder.Services.AddScoped<IAccountManagementService, AccountManagementService>();
 builder.Services.AddAuthenticationCore();
 builder.Services.AddAuthorizationCore();
 

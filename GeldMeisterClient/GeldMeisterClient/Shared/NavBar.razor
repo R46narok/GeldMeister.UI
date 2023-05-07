@@ -5,11 +5,18 @@
 <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
     <div class="container px-5">
         <NavLink class="navbar-brand" href="/" Match="NavLinkMatch.All"><span class="oi oi-home" aria-hidden="true"></span> GeldMeister</NavLink>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ms-auto">
                 <AuthorizeView>
                     <Authorized>
+                        <li class="nav-item">
+                            <NavLink class="nav-link" href="update">
+                                <span class="oi oi-arrow-thick-top" aria-hidden="true"></span> Update Data
+                            </NavLink>
+                        </li>
                         <li class="nav-item">
                             <NavLink class="nav-link" href="logout" @onclick="OnClickLogoutUser">
                                 <span class="oi oi-account-logout" aria-hidden="true"></span> Logout
@@ -35,8 +42,10 @@
 </nav>
 
 @code {
+
     private async Task OnClickLogoutUser()
     {
         await AuthenticationService.LogoutUser();
     }
+
 }
