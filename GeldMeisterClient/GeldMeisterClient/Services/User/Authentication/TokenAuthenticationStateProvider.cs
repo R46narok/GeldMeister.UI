@@ -1,9 +1,9 @@
-﻿using GeldMeisterClient.Security.Extensions;
+﻿using GeldMeisterClient.Services.User.Authentication.Extensions;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 using System.Security.Claims;
 
-namespace GeldMeisterClient.Security
+namespace GeldMeisterClient.Services.User.Authentication
 {
     public class TokenAuthenticationStateProvider : AuthenticationStateProvider
     {

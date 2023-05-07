@@ -2,7 +2,7 @@
 using System.Security.Claims;
 using System.Text.Json;
 
-namespace GeldMeisterClient.Security.Extensions
+namespace GeldMeisterClient.Services.User.Authentication.Extensions
 {
     public static class AuthenticationExtension
     {

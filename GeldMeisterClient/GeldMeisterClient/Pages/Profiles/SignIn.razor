@@ -1,11 +1,9 @@
 ﻿@page "/login"
 @using GeldMeisterClient.Clients;
 @using GeldMeisterClient.Pages.Profiles.Requests;
-@using GeldMeisterClient.Security;
+@using GeldMeisterClient.Services.User.Authentication;
 @using Microsoft.AspNetCore.Components
-@inject IAuthorizationClient AuthorizationClient;
-@inject NavigationManager NavigationManager;
-@inject TokenAuthenticationStateProvider AuthenticationStateProvider;
+@inject AuthenticationService AuthenticationService;
 
 <PageTitle>Sign In</PageTitle>
 <section class="vh-100" style="background-color: #fff;">
@@ -17,7 +15,7 @@
                         <div class="row justify-content-center">
                             <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
 
-                                <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign In</p>
+                                <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Explore your account</p>
 
                                 <EditForm Model="@_request" OnValidSubmit="@HandleValidSubmitAsync" class="mt-4">
                                 <DataAnnotationsValidator />
@@ -56,18 +54,13 @@
         </div>
     </div>
 </section>
-<Footer/>
+<Footer />
+
 @code {
     private readonly SignInRequest _request = new();
 
     private async Task HandleValidSubmitAsync()
     {
-        var token = await AuthorizationClient.GetTokenAsync(_request);
-
-        if (token.IsSuccessStatusCode)
-        {
-            await AuthenticationStateProvider.SetAuthenticationStateAsync(token.Content.Token);
-            NavigationManager.NavigateTo("/", forceLoad: true);
-        }
+        await AuthenticationService.LoginUser(_request);
     }
 }

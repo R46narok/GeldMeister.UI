@@ -1,12 +1,9 @@
 ﻿@page "/register"
 @using GeldMeisterClient.Clients;
 @using GeldMeisterClient.Pages.Profiles.Requests;
-@using GeldMeisterClient.Security;
+@using GeldMeisterClient.Services.User.Authentication;
 @using Microsoft.AspNetCore.Components
-@inject IAuthenticationClient AuthenticationClient;
-@inject NavigationManager NavigationManager;
-@inject IAuthorizationClient AuthorizationClient;
-@inject TokenAuthenticationStateProvider AuthenticationStateProvider;
+@inject AuthenticationService AuthenticationService;
 
 <PageTitle>Sign Up</PageTitle>
 
@@ -48,7 +45,7 @@
                                     </div>
 
                                     <p class="text-center text-muted mt-5 mb-0">
-                                        Have already an account? <a href="/login" class="fw-bold text-body"><u>Sign In here</u></a>
+                                        Have already an account? <a href="login" class="fw-bold text-body"><u>Login here</u></a>
                                     </p>
 
                                 </EditForm>
@@ -66,19 +63,13 @@
         </div>
     </div>
 </section>
-<Footer/>
+<Footer />
+
 @code {
     private readonly SignUpRequest _request = new();
 
     private async Task HandleValidSubmitAsync()
     {
-        var result = await AuthenticationClient.CreateUserAsync(_request);
-        if (result.IsSuccessStatusCode)
-        {
-
-            var token = await AuthorizationClient.GetTokenAsync(new SignInRequest { Username = _request.Username, Password = _request.Password });
-            await AuthenticationStateProvider.SetAuthenticationStateAsync(token.Content.Token);
-            NavigationManager.NavigateTo("/", forceLoad: true);
-        }
+        await AuthenticationService.RegisterAndLoginUser(_request);
     }
 }

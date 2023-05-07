@@ -1,8 +1,6 @@
 using GeldMeisterClient.Clients;
-using GeldMeisterClient.Security;
-using Microsoft.AspNetCore.Components;
+using GeldMeisterClient.Services.User.Authentication;
 using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.AspNetCore.Components.Web;
 using Refit;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +16,8 @@ builder.Services
     .ConfigureHttpClient(x => x.BaseAddress = new Uri(builder.Configuration["Services:Users"]));
 builder.Services.AddScoped<TokenAuthenticationStateProvider, TokenAuthenticationStateProvider>();
 builder.Services.AddScoped<AuthenticationStateProvider, TokenAuthenticationStateProvider>();
+builder.Services.AddScoped<AuthenticationService, AuthenticationService>();
+builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddAuthenticationCore();
 builder.Services.AddAuthorizationCore();
 
