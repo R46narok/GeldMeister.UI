@@ -1,7 +1,6 @@
 ﻿using GeldMeisterClient.Clients;
 using GeldMeisterClient.Pages.Profiles.Requests;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Authorization;
 
 namespace GeldMeisterClient.Services.User.Authentication
 {

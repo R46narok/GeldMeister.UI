@@ -11,6 +11,5 @@ namespace GeldMeisterClient.Clients
 
         [Get("/api/user")]
         public Task<IApiResponse<UserResponse>> GetUserAsync([Query] string userName);
-
     }
 }

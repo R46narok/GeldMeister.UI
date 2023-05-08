@@ -1,0 +1,135 @@
+﻿@page "/profile-details"
+@using GeldMeisterClient.Clients.Responses;
+@using GeldMeisterClient.Pages.Profiles.Requests;
+@using GeldMeisterClient.Services.User.Management;
+@inject AccountManagementService AccountManagementService;
+@inject NavigationManager NavigationManager;
+
+<PageTitle>Profile Details</PageTitle>
+<br/>
+<section class="vh-100" style="background-color: #fff;">
+    <div class="container h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-lg-4">
+                <div class="card text-black" style="border-radius: 25px;">
+                    <div class="card-body p-md-5 text-center">
+                        <img src="/Images/avatar.png" alt="avatar"
+                             class="rounded-circle img-fluid" style="width: 175px;">
+                        <h5 class="my-3 text-muted">@@@_userProfileDetailsResponse.UserName</h5>
+                        <div class="d-flex justify-content-center mb-2">
+                            <a type="button" href="update" class="btn btn-outline-success">Edit</a>
+                            <button type="button" @onclick="OnClickDeleteUserProfile" class="btn btn-danger ms-1">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="card text-black" style="border-radius: 25px;">
+                    <div class="card-body">
+                        <div class="card-header text-center" style="background-color: #fff">
+                            <h5 class="card-title">Your Profile Details</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">Email</p>
+                                </div>
+                                <div class="col-sm-9 text-center">
+                                    @if (string.IsNullOrEmpty(_userProfileDetailsResponse.Email))
+                                    {
+                                        <p class="mb-0 text-danger">No Email Set</p>
+                                    }
+                                    else 
+                                    {
+                                        <p class="text-muted mb-0">@_userProfileDetailsResponse.Email</p>
+                                    }
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">Phone</p>
+                                </div>
+                                <div class="col-sm-9 text-center">
+                                    @if (string.IsNullOrEmpty(_userProfileDetailsResponse.Phone))
+                                    {
+                                        <p class="mb-0 text-danger">No Phone Set</p>
+                                    }
+                                    else
+                                    {
+                                        <p class="text-muted mb-0">@_userProfileDetailsResponse.Phone</p>
+                                    }
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">GitHub Username</p>
+                                </div>
+                                <div class="col-sm-9 text-center">
+
+                                    @if (string.IsNullOrEmpty(_userProfileDetailsResponse.GitHub))
+                                    {
+                                        <p class="mb-0 text-danger">No GitHub Username Set</p>
+                                    }
+                                    else {
+                                        <p class="text-muted mb-0">@_userProfileDetailsResponse.GitHub</p>
+                                    }
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">Instagram Username</p>
+                                </div>
+                                <div class="col-sm-9 text-center">
+                                    @if (string.IsNullOrEmpty(_userProfileDetailsResponse.Instagram))
+                                    {
+                                        <p class="mb-0 text-danger">No Instagram Username Set</p>
+                                    }
+                                    else
+                                    {
+                                        <p class="text-muted mb-0">@_userProfileDetailsResponse.Instagram</p>
+                                    }
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">Twitter Username</p>
+                                </div>
+                                <div class="col-sm-9 text-center">
+                                    @if (string.IsNullOrEmpty(_userProfileDetailsResponse.Twitter))
+                                    {
+                                        <p class="mb-0 text-danger">No Twitter Username Set</p>
+                                    }
+                                    else 
+                                    {
+                                        <p class="text-muted mb-0">@_userProfileDetailsResponse.Twitter</p>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<Footer />
+
+@code {
+    private readonly DetailsRequest _detailsRequest = new();
+    private UserProfileDetailsResponse _userProfileDetailsResponse = new();
+    private readonly DeleteRequest _deleteRequest = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        _userProfileDetailsResponse = await AccountManagementService.GetUserDetails(_detailsRequest);
+    }
+
+    private async Task OnClickDeleteUserProfile()
+    {
+        await AccountManagementService.DeleteUserProfile(_deleteRequest);
+    }
+}
