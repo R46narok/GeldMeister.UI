@@ -1,4 +1,4 @@
-﻿namespace GeldMeisterClient.Clients.Responses
+﻿namespace GeldMeisterClient.Clients.User.Responses
 {
     public class UserResponse
     {

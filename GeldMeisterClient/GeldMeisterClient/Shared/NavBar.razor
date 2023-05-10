@@ -9,16 +9,28 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav justify-content-start">
+                <li class="nav-item">
+                    <NavLink class="nav-link" href="statements/upload">
+                        <span class="oi oi-plus" aria-hidden="true"></span> Upload Statement
+                    </NavLink>
+                </li>
+                <li class="nav-item">
+                    <NavLink class="nav-link" href="banks/create">
+                        <span class="oi oi-plus" aria-hidden="true"></span> Create Bank
+                    </NavLink>
+                </li>
+            </ul>
             <ul class="navbar-nav ms-auto">
                 <AuthorizeView>
                     <Authorized>
                         <li class="nav-item">
-                            <NavLink class="nav-link" href="profile-details">
+                            <NavLink class="nav-link" href="profile/details">
                                 <span class="oi oi-person" aria-hidden="true"></span> View Profile
                             </NavLink>
                         </li>
                         <li class="nav-item">
-                            <NavLink class="nav-link" href="logout" @onclick="OnClickLogoutUser">
+                            <NavLink class="nav-link" href="" @onclick="OnClickLogoutUser">
                                 <span class="oi oi-account-logout" aria-hidden="true"></span> Logout
                             </NavLink>
                         </li>
@@ -37,6 +49,7 @@
                     </NotAuthorized>
                 </AuthorizeView>
             </ul>
+
         </div>
     </div>
 </nav>

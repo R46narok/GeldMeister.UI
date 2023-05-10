@@ -1,0 +1,52 @@
+﻿@page "/banks/create"
+@using GeldMeisterClient.Pages.Banks.Requests
+@using GeldMeisterClient.Services.Bank
+@using Microsoft.AspNetCore.Components
+@inject BankService BankService;
+
+<PageTitle>Create Bank</PageTitle>
+<br/>
+<section class="vh-100" style="background-color: #fff;">
+    <div class="container h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-lg-7 col-xl-6">
+                <div class="card text-black" style="border-radius: 25px;">
+                    <div class="card-body p-md-5">
+                        <div class="row justify-content-center">
+                            <div class="col-md-10 col-lg-9 col-xl-8 order-2 order-lg-1">
+                                <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Create a bank</p>
+
+                                <EditForm Model="@_request" OnValidSubmit="@HandleValidSubmitAsync" class="mt-4">
+                                <DataAnnotationsValidator/>
+                                <ValidationSummary/>
+
+                                    <div class="form-outline mb-4">
+                                        <InputText @bind-Value=_request.Name type="text" class="form-control form-control-lg" placeholder="Bank Name"/>
+                                    </div>
+
+                                <div class="d-flex justify-content-center">
+                                        <button type="submit" class="btn btn-primary btn-block btn-lg">
+                                            Create
+                                        </button>
+                                    </div>
+
+                                </EditForm>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<Footer />
+
+@code {
+    private readonly BankCreateRequest _request = new();
+
+    private async Task HandleValidSubmitAsync()
+    {
+        await BankService.CreateBank(_request);
+    }
+}

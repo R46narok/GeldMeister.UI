@@ -1,8 +1,8 @@
-﻿using GeldMeisterClient.Clients.Responses;
+﻿using GeldMeisterClient.Clients.User.Responses;
 using GeldMeisterClient.Pages.Profiles.Requests;
 using Refit;
 
-namespace GeldMeisterClient.Clients
+namespace GeldMeisterClient.Clients.User
 {
     public interface IAuthorizationClient
     {

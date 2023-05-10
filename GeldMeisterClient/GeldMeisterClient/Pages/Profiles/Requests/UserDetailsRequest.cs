@@ -1,6 +1,6 @@
 ﻿namespace GeldMeisterClient.Pages.Profiles.Requests
 {
-    public class DetailsRequest
+    public class UserDetailsRequest
     {
         public string UserName { get; set; }
     }
