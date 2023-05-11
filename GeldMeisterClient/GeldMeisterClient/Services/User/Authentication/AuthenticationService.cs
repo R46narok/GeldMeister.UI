@@ -1,4 +1,4 @@
-﻿using GeldMeisterClient.Clients;
+﻿using GeldMeisterClient.Clients.User;
 using GeldMeisterClient.Pages.Profiles.Requests;
 using GeldMeisterClient.Services.User.Authentication.Extensions;
 using Microsoft.AspNetCore.Components;

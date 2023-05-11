@@ -1,11 +1,10 @@
-﻿@page "/update"
+﻿@page "/profile/update"
 @using GeldMeisterClient.Pages.Profiles.Requests
-@using GeldMeisterClient.Services.User.Authentication
 @using GeldMeisterClient.Services.User.Management
 @inject AccountManagementService AccountManagementService;
 @attribute [Authorize]
 
-<PageTitle>Sign Up</PageTitle>
+<PageTitle>Update</PageTitle>
 <br/>
 <section class="vh-100" style="background-color: #fff;">
     <div class="container h-100">
@@ -67,7 +66,7 @@
 
 @code {
 
-    private readonly UpdateRequest _request = new();
+    private readonly UserUpdateRequest _request = new();
     
     private async Task HandleValidSubmitAsync()
     {

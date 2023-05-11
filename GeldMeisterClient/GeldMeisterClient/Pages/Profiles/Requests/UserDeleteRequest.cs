@@ -1,6 +1,6 @@
 ﻿namespace GeldMeisterClient.Pages.Profiles.Requests
 {
-    public class DeleteRequest
+    public class UserDeleteRequest
     {
         public string? Id { get; set; }
         public string? UserName { get; set; }

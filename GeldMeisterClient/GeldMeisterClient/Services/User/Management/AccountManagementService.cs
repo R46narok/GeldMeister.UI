@@ -1,5 +1,5 @@
-﻿using GeldMeisterClient.Clients;
-using GeldMeisterClient.Clients.Responses;
+﻿using GeldMeisterClient.Clients.User;
+using GeldMeisterClient.Clients.User.Responses;
 using GeldMeisterClient.Pages.Profiles.Requests;
 using GeldMeisterClient.Services.User.Authentication;
 using Microsoft.AspNetCore.Components;
@@ -22,20 +22,20 @@ public class AccountManagementService : IAccountManagementService
         _tokenAuthenticationStateProvider = tokenAuthenticationStateProvider;
     }
 
-    public async Task UpdateUserDetails(UpdateRequest request)
+    public async Task UpdateUserDetails(UserUpdateRequest request)
     {
         var authState = await _tokenAuthenticationStateProvider.GetAuthenticationStateAsync();
 
         request.Username = authState.User.Identity.Name;
 
-        var result = await _accountManagementClient.UpdateUserDetails(request);
+        var result = await _accountManagementClient.UpdateUserDetailsAsync(request);
         if (result.IsSuccessStatusCode)
         {
-            _navigationManager.NavigateTo("/", forceLoad: true);
+            _navigationManager.NavigateTo("/profile/details", forceLoad: true);
         }
     }
 
-    public async Task<UserProfileDetailsResponse> GetUserDetails(DetailsRequest request)
+    public async Task<UserProfileDetailsResponse> GetUserDetails(UserDetailsRequest request)
     {
         var authState = await _tokenAuthenticationStateProvider.GetAuthenticationStateAsync();
         request.UserName = authState.User.Identity.Name;
@@ -56,7 +56,7 @@ public class AccountManagementService : IAccountManagementService
         throw new Exception($"Error retrieving details about user with username @{request.UserName}: {result.StatusCode}");
     }
 
-    public async Task DeleteUserProfile(DeleteRequest request)
+    public async Task DeleteUserProfile(UserDeleteRequest request)
     {
         var authState = await _tokenAuthenticationStateProvider.GetAuthenticationStateAsync();
         request.UserName = authState.User.Identity.Name;

@@ -1,7 +1,7 @@
-﻿@page "/profile-details"
-@using GeldMeisterClient.Clients.Responses;
+﻿@page "/profile/details"
 @using GeldMeisterClient.Pages.Profiles.Requests;
 @using GeldMeisterClient.Services.User.Management;
+@using GeldMeisterClient.Clients.User.Responses
 @inject AccountManagementService AccountManagementService;
 @inject NavigationManager NavigationManager;
 @attribute [Authorize]
@@ -18,7 +18,7 @@
                              class="rounded-circle img-fluid" style="width: 175px;">
                         <h5 class="my-3 text-muted">@@@_userProfileDetailsResponse.UserName</h5>
                         <div class="d-flex justify-content-center mb-2">
-                            <a type="button" href="update" class="btn btn-outline-success">Edit</a>
+                            <a type="button" href="profile/update" class="btn btn-outline-success">Edit</a>
                             <button type="button" @onclick="OnClickDeleteUserProfile" class="btn btn-danger ms-1">Delete</button>
                         </div>
                     </div>
@@ -120,17 +120,17 @@
 <Footer />
 
 @code {
-    private readonly DetailsRequest _detailsRequest = new();
+    private readonly UserDetailsRequest _userDetailsRequest = new();
     private UserProfileDetailsResponse _userProfileDetailsResponse = new();
-    private readonly DeleteRequest _deleteRequest = new();
+    private readonly UserDeleteRequest _userDeleteRequest = new();
 
     protected override async Task OnInitializedAsync()
     {
-        _userProfileDetailsResponse = await AccountManagementService.GetUserDetails(_detailsRequest);
+        _userProfileDetailsResponse = await AccountManagementService.GetUserDetails(_userDetailsRequest);
     }
 
     private async Task OnClickDeleteUserProfile()
     {
-        await AccountManagementService.DeleteUserProfile(_deleteRequest);
+        await AccountManagementService.DeleteUserProfile(_userDeleteRequest);
     }
 }
