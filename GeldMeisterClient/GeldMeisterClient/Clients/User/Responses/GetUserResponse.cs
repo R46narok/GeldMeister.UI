@@ -1,6 +1,6 @@
 ﻿namespace GeldMeisterClient.Clients.User.Responses
 {
-    public class UserResponse
+    public class GetUserResponse
     {
         public string Id { get; set; }
         public string UserName { get; set; }

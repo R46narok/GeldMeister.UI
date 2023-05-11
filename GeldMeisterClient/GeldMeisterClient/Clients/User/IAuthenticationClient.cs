@@ -10,6 +10,6 @@ namespace GeldMeisterClient.Clients.User
         public Task<IApiResponse> CreateUserAsync(SignUpRequest request);
 
         [Get("/api/user")]
-        public Task<IApiResponse<UserResponse>> GetUserAsync([Query] string userName);
+        public Task<IApiResponse<GetUserResponse>> GetUserAsync([Query] string userName);
     }
 }
