@@ -7,5 +7,6 @@ namespace GeldMeisterClient.Services.User.Authentication
         Task RegisterAndLoginUser(SignUpRequest request);
         Task LoginUser(SignInRequest request);
         Task LogoutUser();
+        Task RedirectIfIsAuthenticated(); 
     }
 }

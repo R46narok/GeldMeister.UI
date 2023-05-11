@@ -3,6 +3,8 @@
 @using GeldMeisterClient.Services.User.Authentication
 @using GeldMeisterClient.Services.User.Management
 @inject AccountManagementService AccountManagementService;
+@attribute [Authorize]
+
 <PageTitle>Sign Up</PageTitle>
 <br/>
 <section class="vh-100" style="background-color: #fff;">

@@ -1,6 +1,8 @@
 ﻿using GeldMeisterClient.Clients;
 using GeldMeisterClient.Pages.Profiles.Requests;
+using GeldMeisterClient.Services.User.Authentication.Extensions;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 
 namespace GeldMeisterClient.Services.User.Authentication
 {
@@ -11,7 +13,8 @@ namespace GeldMeisterClient.Services.User.Authentication
         private readonly TokenAuthenticationStateProvider _tokenAuthenticationStateProvider;
         private readonly NavigationManager _navigationManager;
 
-        public AuthenticationService(IAuthenticationClient authenticationClient, IAuthorizationClient authorizationClient, TokenAuthenticationStateProvider tokenAuthenticationStateProvider, NavigationManager navigationManager)
+        public AuthenticationService(IAuthenticationClient authenticationClient, IAuthorizationClient authorizationClient, 
+            TokenAuthenticationStateProvider tokenAuthenticationStateProvider, NavigationManager navigationManager)
         {
             _authenticationClient = authenticationClient;
             _authorizationClient = authorizationClient;
@@ -46,6 +49,14 @@ namespace GeldMeisterClient.Services.User.Authentication
         {
             await _tokenAuthenticationStateProvider.SetAuthenticationStateAsync(token);
             _navigationManager.NavigateTo("/", forceLoad: true);
+        }
+
+        public async Task RedirectIfIsAuthenticated()
+        {
+            var authState = await _tokenAuthenticationStateProvider.GetAuthenticationStateAsync();
+
+            var result = authState.User.IsAuthenticated();
+            if (result) _navigationManager.NavigateTo("/");
         }
     }
 }
