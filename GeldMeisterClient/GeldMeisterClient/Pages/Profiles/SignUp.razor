@@ -2,7 +2,7 @@
 @using GeldMeisterClient.Pages.Profiles.Requests;
 @using GeldMeisterClient.Services.User.Authentication;
 @using Microsoft.AspNetCore.Components
-@inject AuthenticationService AuthenticationService;
+@inject IAuthenticationService AuthenticationService;
 
 <PageTitle>Sign Up</PageTitle>
 <br/>
@@ -63,17 +63,3 @@
     </div>
 </section>
 <Footer />
-
-@code {
-    private readonly SignUpRequest _request = new();
-
-    protected override async Task OnInitializedAsync()
-    {
-        await AuthenticationService.RedirectIfIsAuthenticated();
-    }
-
-    private async Task HandleValidSubmitAsync()
-    {
-        await AuthenticationService.RegisterAndLoginUser(_request);
-    }
-}

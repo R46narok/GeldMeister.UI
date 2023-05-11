@@ -1,7 +1,7 @@
 ﻿@page "/profile/update"
 @using GeldMeisterClient.Pages.Profiles.Requests
 @using GeldMeisterClient.Services.User.Management
-@inject AccountManagementService AccountManagementService;
+@inject IAccountManagementService AccountManagementService;
 @attribute [Authorize]
 
 <PageTitle>Update</PageTitle>
@@ -63,13 +63,3 @@
     </div>
 </section>
 <Footer/>
-
-@code {
-
-    private readonly UserUpdateRequest _request = new();
-    
-    private async Task HandleValidSubmitAsync()
-    {
-        await AccountManagementService.UpdateUserDetails(_request);
-    }
-}
